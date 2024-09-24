@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCultify Assignment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
+        }
+        body {
+            width: 100%;
+            margin: 0 auto;
+        }
+        main {
+            width: 100%;
+            padding-top: 100px;
+        }
+        header {
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px 40px;
+            background: #FFFFFF;
+            border-bottom: 1px solid #D9D9D9;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000; 
+        }
+        .brand-logo {
+            width: 100%;
+            max-width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+        .btn-getStarted {
+            display: block;
+        }
+        .nav-items {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-items a {
+            color: #2A2A2A; 
+            padding: 12px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s;
+            border: 2px solid transparent; 
+        }
+        .nav-items a:hover {
+            color: #0056b3; 
+            border: 2px solid #007BFF;
+            transform: scale(1.05); 
+        }
+
+        .nav-items a.active {
+            color: #FF4081; 
+            border: 2px solid #FF4081; 
+        }
+        .btn-getStarted {
+            display: inline-block;
+            background-color: #FFAB40; 
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s;
+            outline: none !important;
+            border: 0 !important;
+            cursor: pointer;
+        }
+
+        .btn-getStarted:hover {
+            background-color: #218838; 
+            transform: translateY(-2px);
+        }
+
+        .btn-getStarted:active {
+            transform: translateY(1px);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #333;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        #nav-items {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        #nav-items.hidden {
+            transform: translateX(-100%);
+        }
+
+        #hero-section {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 530px;
+            padding: 20px;
+            color: #FFFFFF;
+            text-align: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect width="800" height="600" fill="%232A2A2A"/><circle cx="50" cy="50" r="10" fill="%23007BFF"/><circle cx="150" cy="150" r="10" fill="%23FF4081"/><circle cx="250" cy="50" r="10" fill="%234CAF50"/><circle cx="350" cy="150" r="10" fill="%23FFAB40"/><circle cx="450" cy="50" r="10" fill="%23607D8B"/><circle cx="550" cy="150" r="10" fill="%239E9E9E"/><circle cx="650" cy="50" r="10" fill="%23FF4081"/><circle cx="750" cy="150" r="10" fill="%23007BFF"/></svg>');
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .headline {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .subheadline {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .btn-exploreServices {
+            display: inline-block;
+            background-color: #FF4081;
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .btn-exploreServices:hover {
+            background-color: #E91E63;
+            transform: translateY(-2px);
+        }
+        #features-section {
+            padding: 86px 20px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);  
+        }
+
+        #features-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;            
+            color: #007BFF;
+        }
+
+
+        .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .feature-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 375px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .icon {
+            margin-bottom: 15px;
+        }
+
+        .icon svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .feature-card span {
+            color: #007BFF;
+            margin-bottom: 10px;
+            display: inline-block;
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            color: #333333;
+            margin-bottom: 15px;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .feature-card ul li {
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .additional-points {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .additional-points p {
+            font-weight: bold;
+        }
+
+        .additional-points ul {
+            margin-top: 5px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .icon {
+            margin-bottom: 15px;
+            font-size: 50px;
+            color: #007BFF; 
+        }
+        .testimonials {
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #e0e7ff, #f4f4f4);
+        }
+
+        .testimonials h3 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #007BFF;
+        }
+
+        .testimonial-cards {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .testimonial-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px; 
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .testimonial-card .logo {
+            font-size: 40px;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-card p {
+            color: #555;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .testimonial-card span {
+            color: #007BFF;
+            margin-bottom: 5px;
+            display: inline-block;
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        #section-about {
+            padding: 80px 20px 150px;
+            background-color: #f4f4f4;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23e0e7ff" d="M0,128L30,160C60,192,120,256,180,245.3C240,235,300,149,360,128C420,107,480,149,540,165.3C600,181,660,171,720,154.7C780,139,840,117,900,96C960,75,1020,53,1080,53.3C1140,53,1200,75,1260,101.3C1320,128,1380,160,1410,176L1440,192L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .about-content {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about span {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .about p {
+            font-size: 1.2em;
+        }
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;            
+            color: #007BFF;
+        }
+        #section-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #007BFF, #1abc9c);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .cta span {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            display: inline-block;
+        }
+
+        .cta p {
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: transparent;
+            color: #007BFF;
+            border: 2px solid #007BFF;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: all 0.3s;
+        }
+
+        .btn-cta:hover {
+            background-color: #007BFF;
+            color: white;
+            transform: scale(1.1);
+        }
+        #toast {
+            min-width: 250px;
+            margin: 10px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1050;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .contact-us-heading {
+            text-align: center;
+            font-size: 24px;
+            color: #007BFF;
+
+        }
+        .modal-header {
+            border-bottom: none !important;
+        }
+        .modal {
+            padding: 0 !important;
+        }
+        .modal.show .modal-dialog {
+            -webkit-transform: none;
+            transform: none;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        footer {
+            background: linear-gradient(135deg, #34495e, #a1c6e7);
+            color: white;
+            padding: 70px 20px;
+        }
+
+        footer .container-wrapper {
+            display: flex;
+            justify-content: space-between;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer h5 {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color:wheat;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer ul li {
+            margin: 10px 0;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #007BFF;
+        }
+
+        .footer-social ul li {
+            display: inline;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-social i {
+            margin-right: 5px;
+        }
+
+    </style>
+    <style>
+        @media (max-width: 1065px) {
+            .hamburger {
+                display: flex;
+            }
+
+            #nav-items {
+                position: fixed;
+                top: 0;
+                left: 0;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100vh;
+                background-color: #fff;
+                transform: translateX(-100%);
+                z-index: 999;
+            }
+
+            #nav-items a {
+                font-size: 24px;
+                margin: 10px 0;
+            }
+
+            #nav-items.visible {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px;
+            }
+            main {
+                padding-top: 81px;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .btn-getStarted {
+                margin: 10px 0;
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+
+            #hero-section {
+                height: auto;
+                padding: 40px 10px;
+            }
+
+            .headline {
+                font-size: 24px;
+            }
+
+            .subheadline {
+                font-size: 16px;
+            }
+
+            .btn-exploreServices {
+                padding: 10px 20px;
+            }
+
+            .feature-card {
+                width: 100%;
+                max-width: 500px;
+                margin-bottom: 20px;
+            }
+
+            .testimonial-card {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            #section-about {
+                padding: 40px 20px;
+            }
+
+            .about-content {
+                max-width: 100%;
+            }
+
+            #section-cta {
+                padding: 40px 20px;
+            }
+
+            .cta-content {
+                max-width: 100%;
+            }
+
+            .footer {
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .container-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-social ul li {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column; 
+                align-items: center; 
+            }
+
+            nav a {
+                margin: 5px 0; 
+                width: 100%; 
+                text-align: center; 
+            }
+        }
+        @media (max-width: 480px) {
+
+            .headline {
+                font-size: 20px;
+            }
+
+            .subheadline {
+                font-size: 14px;
+            }
+
+            .footer h5 {
+                font-size: 18px;
+            }
+
+            .footer a {
+                font-size: 14px;
+                justify-content: center;
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+    <main>
+        <header>
+            <div class="brand-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+                    <text x="10" y="60" font-family="Orbitron, sans-serif" font-size="50" font-weight="bold" fill="#2C3E50">
+                      Tech
+                    </text>             
+                    <path d="M130 30 L190 70" stroke="#18BC9C" stroke-width="6"/>          
+                    <text x="200" y="60" font-family="Orbitron, sans-serif" font-size="50" font-weight="bold" fill="#2C3E50">
+                      Wave
+                    </text>
+                </svg>                                          
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="nav-items" id="nav-items">
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Services</a>
+                <a href="#">Case Studies</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+                <button class="btn-getStarted">Get Started</button>
+            </nav>
+        </header>
+        <section id="hero-section">
+            <div class="hero-content">
+                <h1 class="headline">Innovative Tech Solutions for Tomorrow's Challenges</h1>
+                <p class="subheadline">Empowering businesses with cutting-edge technology and expert insights.</p>
+                <a href="#services" class="btn-exploreServices">Explore Our Services</a>
+            </div>
+        </section>
+        <section id="features-section">
+            <h2>Our Features</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <span>Custom Software Development</span>
+                    <p>Tailored solutions to meet your unique business needs, ensuring scalability and performance.</p>
+                    <ul>
+                        <li>Agile Development Methodology</li>
+                        <li>Cross-platform Solutions</li>
+                        <li>Quality Assurance Testing</li>
+                    </ul>
+                    <div class="additional-points">
+                        <p>Benefits:</p>
+                        <ul>
+                            <li>Enhanced Productivity</li>
+                            <li>Increased Efficiency</li>
+                            <li>Cost-effective Solutions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <span>Cloud Integration</span>
+                    <p>Seamlessly migrate to the cloud with our reliable and secure integration services.</p>
+                    <ul>
+                        <li>Data Migration Services</li>
+                        <li>Cloud Architecture Design</li>
+                        <li>Continuous Monitoring & Support</li>
+                    </ul>
+                    <div class="additional-points">
+                        <p>Benefits:</p>
+                        <ul>
+                            <li>Scalability</li>
+                            <li>Cost Savings</li>
+                            <li>Enhanced Security</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <span>AI & Machine Learning</span>
+                    <p>Unlock the potential of artificial intelligence to drive smarter business decisions.</p>
+                    <ul>
+                        <li>Predictive Analytics</li>
+                        <li>Natural Language Processing</li>
+                        <li>Custom AI Solutions</li>
+                    </ul>
+                    <div class="additional-points">
+                        <p>Benefits:</p>
+                        <ul>
+                            <li>Data-Driven Insights</li>
+                            <li>Improved Decision Making</li>
+                            <li>Automation of Tasks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section-testimonial" class="testimonials">
+            <h3>What Our Clients Say</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <div class="logo">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <p>"TechWave revolutionized our operational efficiency and transformed how we engage with customers. Their solutions are top-notch!"</p>
+                    <span>Sarah Johnson</span>
+                    <p>CEO of InnovateX</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="logo">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <p>"The team at TechWave provided exceptional support and innovative solutions that took our business to the next level!"</p>
+                    <span>Michael Smith</span>
+                    <p>CTO of FutureTech</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="logo">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <p>"Working with TechWave has been a game-changer. Their insights and technology have significantly improved our processes!"</p>
+                    <span>Emily Davis</span>
+                    <p>Managing Director of Solutions Corp</p>
+                </div>
+            </div>
+        </section>
+        <section id="section-about" class="about">
+            <h4 class="section-heading">About Us</h4>
+            <div class="about-content">
+                <span>Building the Future, One Innovation at a Time</span>
+                <p>At TechWave, we believe in pushing the boundaries of technology to deliver world-class solutions. With a decade of experience in software development, cloud integration, and AI, we are committed to helping businesses navigate the digital landscape.</p>
+            </div>
+        </section>
+        <section id="section-cta" class="cta">
+            <div class="cta-content">
+                <span>Ready to Elevate Your Business?</span>
+                <p>Contact us today to learn how TechWave can help you achieve your business goals with our custom solutions.</p>
+                <a href="#contact" class="btn-cta btn btn-primary" data-toggle="modal" data-target="#contactModal">Contact Us</a>
+                <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="contact-us-heading">Contact Us</div>
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <div aria-hidden="true">&times;</div>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="contact-form">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="name" placeholder="Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="email" placeholder="Email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="tel" class="form-control" id="phone" placeholder="Phone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="message" placeholder="Message" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-body">Form Submitted</div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="container-wrapper">
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h5>Social Media</h5>
+                    <ul>
+                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+                   
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#contact-form').on('submit', function (e) {
+                e.preventDefault();
+                $('#toast').addClass('show');               
+                $('#contactModal').modal('hide');                   
+                $(this).trigger('reset');
+                setTimeout(function () {
+                    $('#toast').removeClass('show');
+                }, 3000);
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hamburger = document.getElementById('hamburger');
+            const navItems = document.getElementById('nav-items');
+    
+            hamburger.addEventListener('click', function () {
+                hamburger.classList.toggle('active');
+                navItems.classList.toggle('visible');
+            });
+        });
+    </script>
+    
+</body>
+</html>
